@@ -1,7 +1,6 @@
 'use client';
 import { heroConfig, skillComponents, socialLinks } from '@/config/Hero';
 import { parseTemplate } from '@/lib/hero';
-import { cn } from '@/lib/utils';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import React from 'react';

@@ -14,7 +14,7 @@ export default function ScrambleText({ text, className = '' }: { text: string; c
     if (!isInView) return;
     let iteration = 0;
     const interval = setInterval(() => {
-      setDisplayText((prev) =>
+      setDisplayText(() =>
         text
           .split("")
           .map((letter, index) => {
