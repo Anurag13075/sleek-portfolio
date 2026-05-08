@@ -14,38 +14,33 @@ function ScrollArea({
   const [lenisInstance, setLenisInstance] = React.useState<Lenis | null>(null);
 
   React.useEffect(() => {
-    type WindowWithLenis = Window & { lenis?: any };
-    if (typeof window !== 'undefined' && (window as WindowWithLenis).lenis) {
-      setLenisInstance((window as WindowWithLenis).lenis);
+    if (typeof window !== 'undefined' && (window as any).lenis) {
+      setLenisInstance((window as any).lenis);
     }
   }, []);
 
   const onMouseEnter = () => {
     if (lenisInstance) {
-      lenisInstance.stop(); // Stop Lenis scrolling when mouse inside chat
+      lenisInstance.stop();
     }
   };
 
   const onMouseLeave = () => {
     if (lenisInstance) {
-      lenisInstance.start(); // Resume Lenis scrolling when mouse leaves chat
+      lenisInstance.start();
     }
   };
 
-  // Prevent wheel event from bubbling to Lenis while allowing native scroll
   const onWheelCapture = (e: React.WheelEvent) => {
     if (viewportRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = viewportRef.current;
       const delta = e.deltaY;
-      // Check if can scroll in wheel direction
       const canScrollUp = scrollTop > 0;
       const canScrollDown = scrollTop + clientHeight < scrollHeight;
 
       if ((delta < 0 && canScrollUp) || (delta > 0 && canScrollDown)) {
         e.stopPropagation();
-        // keep native scroll
       }
-      // If chat can't scroll further, allow Lenis/page scroll to happen
     }
   };
 
@@ -62,7 +57,7 @@ function ScrollArea({
         ref={viewportRef}
         className="focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1"
         style={{ overflowY: 'auto', scrollBehavior: 'smooth' }}
-        onWheelCapture={onWheelCapture} // capture wheel before Lenis
+        onWheelCapture={onWheelCapture}
       >
         {children}
       </ScrollAreaPrimitive.Viewport>
