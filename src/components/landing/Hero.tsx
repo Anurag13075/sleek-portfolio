@@ -3,7 +3,7 @@ import { heroConfig, skillComponents, socialLinks } from '@/config/Hero';
 import { parseTemplate } from '@/lib/hero';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   motion,
   useScroll,
@@ -265,7 +265,7 @@ function RippleButton({ button, index, IconComponent }: {
 
 // ─── Scroll fade-out ───────────────────────────────────────────────────────────
 
-function useScrollFade(containerRef: React.RefObject<HTMLElement>) {
+function useScrollFade() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const y       = useTransform(scrollY, [0, 300], [0, -40]);
@@ -278,8 +278,7 @@ const buttonIcons = { CV, Chat };
 
 export default function Hero() {
   const { name, title, avatar, skills, description, buttons } = heroConfig;
-  const containerRef = useRef<HTMLDivElement>(null!);
-  const { opacity: scrollOpacity, y: scrollY } = useScrollFade(containerRef);
+  const { opacity: scrollOpacity, y: scrollY } = useScrollFade();
 
   const renderDescription = () => {
     const parts = parseTemplate(description.template, skills);
@@ -313,7 +312,6 @@ export default function Hero() {
   return (
     <motion.div style={{ opacity: scrollOpacity, y: scrollY }}>
       <Container
-        ref={containerRef}
         className="mx-auto max-w-5xl flex flex-col items-center justify-center text-center min-h-[85vh] py-20 relative"
       >
         {/* Ambient background glow */}
