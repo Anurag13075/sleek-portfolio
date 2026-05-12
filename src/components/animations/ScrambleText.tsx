@@ -22,7 +22,7 @@ export default function ScrambleText({
   delay?: number;
 }) {
   const [chars, setChars] = useState<CharState[]>([]);
-  const [done, setDone] = useState(false);
+
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -32,7 +32,6 @@ export default function ScrambleText({
     if (!isInView) return;
 
     // Reset
-    setDone(false);
     setChars(
       text.split('').map(() => ({
         char: text.replace(/[^ ]/g, () => LETTERS[Math.floor(Math.random() * LETTERS.length)]).charAt(0),
@@ -78,7 +77,6 @@ export default function ScrambleText({
               scrambleIntensity: 0,
             }))
           );
-          setDone(true);
         }
       }, 30 / speed);
     }, delay);
