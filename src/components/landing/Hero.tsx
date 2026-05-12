@@ -40,7 +40,7 @@ const FADE_UP = {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { type: 'spring', stiffness: 80, damping: 18 },
+    transition: { type: 'spring' as const, stiffness: 80, damping: 18 },
   },
 };
 
@@ -50,7 +50,7 @@ const FADE_UP_FAST = {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { type: 'spring', stiffness: 120, damping: 20 },
+    transition: { type: 'spring' as const, stiffness: 120, damping: 20 },
   },
 };
 
@@ -60,7 +60,7 @@ const SCALE_IN = {
     scale: 1,
     opacity: 1,
     filter: 'blur(0px)',
-    transition: { type: 'spring', stiffness: 90, damping: 20, delay: 0.05 },
+    transition: { type: 'spring' as const, stiffness: 90, damping: 20, delay: 0.05 },
   },
 };
 
@@ -71,7 +71,7 @@ const ICON_POP = {
     opacity: 1,
     rotate: 0,
     transition: {
-      type: 'spring',
+      type: 'spring' as const,
       stiffness: 200,
       damping: 16,
       delay: 0.55 + i * 0.07,
