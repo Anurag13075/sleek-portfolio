@@ -37,7 +37,7 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
     const frontmatter = data as BlogFrontmatter;
     if (!frontmatter.title || !frontmatter.description) {
       throw new Error(`Invalid frontmatter in ${slug}.mdx`);
-    }
+    }  
 
     return {
       slug,
@@ -148,3 +148,7 @@ export async function getRelatedPosts(
 
   return postsWithScore.slice(0, maxPosts).map((item) => item.post);
 }
+
+
+
+
