@@ -1,6 +1,7 @@
 import { Link } from 'next-view-transitions';
 import React from 'react';
 
+
 interface SkillProps {
   name: string;
   href: string;
@@ -19,3 +20,5 @@ export default function Skill({ name, href, children }: SkillProps) {
     </Link>
   );
 }
+
+
