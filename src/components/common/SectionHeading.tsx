@@ -7,7 +7,7 @@ import ScrambleText from '../animations/ScrambleText';
 interface SectionHeadingProps {
   subHeading: string;
   heading: string;
-}
+}\
 
 export default function SectionHeading({
   subHeading,
