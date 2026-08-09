@@ -1,4 +1,13 @@
 
+import TypeScript from '@/components/technologies/TypeScript';
+import ReactIcon from '@/components/technologies/ReactIcon';
+import NextJs from '@/components/technologies/NextJs';
+import TailwindCss from '@/components/technologies/TailwindCss';
+import Prisma from '@/components/technologies/Prisma';
+import PostgreSQL from '@/components/technologies/PostgreSQL';
+import NodeJs from '@/components/technologies/NodeJs';
+import ExpressJs from '@/components/technologies/ExpressJs';
+import MongoDB from '@/components/technologies/MongoDB';
 
 export interface Technology {
   name: string;
@@ -23,4 +32,55 @@ export interface Experience {
   isBlur?: boolean;
 }
 
-export const experiences: Experience[] = [];
+export const experiences: Experience[] = [
+  {
+    company: 'Heva AI',
+    position: 'Full Stack Developer Intern',
+    location: 'Remote',
+    image: '/company/heva-ai.png',
+    description: [
+      '*Developed* and maintained full-stack AI applications using Next.js and React',
+      '*Built* responsive web interfaces with TypeScript and Tailwind CSS',
+      '*Implemented* backend APIs with Node.js and Express.js',
+      '*Collaborated* with team to integrate AI models and optimize performance',
+      '*Demonstrated* dedication and contributed to Civilization\'s productivity mission',
+    ],
+    startDate: 'Jan 2026',
+    endDate: 'Aug 2026',
+    website: 'https://www.heva-ai.com',
+    linkedin: 'https://www.linkedin.com/company/heva-ai/',
+    technologies: [
+      { name: 'Next.js', href: 'https://nextjs.org', icon: <NextJs /> },
+      { name: 'React', href: 'https://react.dev', icon: <ReactIcon /> },
+      { name: 'TypeScript', href: 'https://www.typescriptlang.org', icon: <TypeScript /> },
+      { name: 'Tailwind CSS', href: 'https://tailwindcss.com', icon: <TailwindCss /> },
+      { name: 'Node.js', href: 'https://nodejs.org', icon: <NodeJs /> },
+      { name: 'PostgreSQL', href: 'https://www.postgresql.org', icon: <PostgreSQL /> },
+    ],
+    isCurrent: false,
+  },
+  {
+    company: 'Kestra',
+    position: 'Open Source Contributor',
+    location: 'Remote, India',
+    image: '/company/kestra.png',
+    description: [
+      '*Contributed* to Kestra open-source project frontend development',
+      '*Developed* responsive UI components using Vue.js and TypeScript',
+      '*Implemented* features for workflow orchestration platform',
+      '*Collaborated* with community and maintained code quality standards',
+      '*Enhanced* user experience through modern web technologies',
+    ],
+    startDate: 'Oct 2025',
+    endDate: 'Nov 2025',
+    website: 'https://kestra.io',
+    github: 'https://github.com/kestra-io/kestra',
+    technologies: [
+      { name: 'TypeScript', href: 'https://www.typescriptlang.org', icon: <TypeScript /> },
+      { name: 'Next.js', href: 'https://nextjs.org', icon: <NextJs /> },
+      { name: 'Tailwind CSS', href: 'https://tailwindcss.com', icon: <TailwindCss /> },
+      { name: 'Node.js', href: 'https://nodejs.org', icon: <NodeJs /> },
+    ],
+    isCurrent: false,
+  },
+];
