@@ -52,4 +52,21 @@ export const projects: Project[] = [
     projectDetailsPageSlug: '/projects/git-explorer',
     isWorking: true,
   },
+  {
+    title: 'PersonaCast AI',
+    description:
+      'PersonaCast AI — Upload a receipt photo and a voice memo, AI cross-checks every field and flags mismatches before they hit finance. Groq Whisper + Anthropic vision, ~15s turnaround, no signup needed.',
+    image: '/project/personcast.png',
+    link: 'https://personacast-ai.vercel.app/',
+    technologies: [
+      { name: 'React', icon: <ReactIcon key="react" /> },
+      { name: 'TypeScript', icon: <TypeScript key="typescript" /> },
+      { name: 'Tailwind CSS', icon: <TailwindCss key="tailwindcss" /> },
+      { name: 'Vercel', icon: <Vercel key="vercel" /> },
+    ],
+    live: 'https://personacast-ai.vercel.app/',
+    details: true,
+    projectDetailsPageSlug: '/projects/personacast-ai',
+    isWorking: true,
+  },
 ];
