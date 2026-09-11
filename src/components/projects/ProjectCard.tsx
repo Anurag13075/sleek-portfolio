@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 
+import { LinkPreview } from '../ui/link-preview';
+
 interface ProjectCardProps {
   project: Project;
 }
@@ -40,15 +42,15 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {project.description}
         </p>
       </div>
-      <Link
-        href={project.live ?? project.link}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={`Visit ${project.title}`}
+      <LinkPreview
+        url={project.live ?? project.link}
+        imageSrc={project.image}
         className="row-arrow"
       >
-        <ArrowUpRight className="size-4" />
-      </Link>
+        <span aria-label={`Visit ${project.title}`}>
+          <ArrowUpRight className="size-4" />
+        </span>
+      </LinkPreview>
     </article>
   );
 }

@@ -173,9 +173,37 @@
   }
 
   .blog-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .link-preview {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .link-preview-card {
+    position: absolute;
+    bottom: calc(100% + 0.75rem);
+    left: 50%;
+    z-index: 30;
+    display: block;
+    height: 7rem;
+    width: 13rem;
+    transform: translateX(-50%);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--card);
+    box-shadow: 0 12px 30px color-mix(in oklch, var(--foreground) 16%, transparent);
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .blog-list {
+      grid-template-columns: 1fr;
+    }
   }
 
   .social-link {
