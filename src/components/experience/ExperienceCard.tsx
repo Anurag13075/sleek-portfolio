@@ -21,7 +21,7 @@ const parseDescription = (text: string): string => {
 
 export function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
-    <div className="flex flex-col gap-4">
+    <article className="experience-entry flex flex-col gap-4">
       {/* Company Header */}
       <div className="flex flex-col gap-2 md:flex-row md:justify-between">
         {/* Left Side */}
@@ -103,7 +103,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
                 <div className="flex items-center gap-1 rounded-md border-green-300 bg-green-500/10 px-2 py-1 text-xs">
                   <div className="size-2 animate-pulse rounded-full bg-green-500"></div>
                   Working
-                </div>
+                </article>
               )}
             </div>
             <p>{experience.position}</p>

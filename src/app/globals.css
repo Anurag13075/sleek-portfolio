@@ -203,6 +203,20 @@
     border-top: 0;
   }
 
+  .experience-entry {
+    border-top: 1px dotted var(--border);
+    padding: 1.75rem 0 2rem;
+  }
+
+  .experience-entry:first-child {
+    border-top: 0;
+    padding-top: 0.25rem;
+  }
+
+  .experience-entry:last-child {
+    padding-bottom: 0.25rem;
+  }
+
   .project-thumb {
     height: 2.25rem;
     width: 2.25rem;
