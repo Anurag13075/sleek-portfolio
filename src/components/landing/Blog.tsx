@@ -13,7 +13,7 @@ export default function Blog() {
   return (
     <Container className="home-section">
       <SectionHeading subHeading="Writing" heading="Notes from the process" />
-      <div className="mt-6 divide-y divide-border border-y border-border">
+      <div className="blog-list mt-8 mb-4">
         {posts.slice(0, 2).map((post) => (
           <BlogCard key={post.slug} post={post} />
         ))}

@@ -172,6 +172,12 @@
     gap: 1rem;
   }
 
+  .blog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
   .social-link {
     display: inline-flex;
     align-items: center;
