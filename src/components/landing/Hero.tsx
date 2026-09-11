@@ -17,8 +17,9 @@ export default function Hero() {
         </p>
         <div className="flex flex-wrap gap-x-5 gap-y-2 pt-1">
           {socialLinks.map((social) => (
-            {social.name === 'Email' ? (
+            social.name === 'Email' ? (
               <Link
+                key={social.name}
                 href={social.href}
                 className="social-link"
               >
@@ -28,7 +29,7 @@ export default function Hero() {
               <LinkPreview key={social.name} url={social.href}>
                 <span className="social-link">{social.name}</span>
               </LinkPreview>
-            )}
+            )
           ))}
         </div>
       </div>
