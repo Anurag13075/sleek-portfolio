@@ -61,15 +61,14 @@ export default function CTA({
 
   return (
     <>
-      <Container className="mt-20 overflow-hidden rounded-3xl border border-border/50 bg-accent/20 backdrop-blur-md py-16 relative shadow-lg">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/10 pointer-events-none"></div>
-        <div className="relative z-10 w-full flex-col px-6 sm:flex sm:items-center sm:justify-center text-center">
-          <h3 className="mb-6 text-3xl font-extrabold md:text-5xl tracking-tight text-foreground">
+      <Container className="home-cta">
+        <div className="relative z-10 flex w-full flex-col text-left sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+          <h3 className="text-2xl font-medium tracking-tight text-foreground">
             {preText}
           </h3>
-          <div className="mt-4 flex w-full justify-center">
+          <div className="mt-5 flex w-full justify-start sm:mt-0 sm:w-auto">
             <div
-              className="group inline-flex cursor-pointer items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+              className="button-primary cursor-pointer"
               onClick={handleButtonClick}
             >
               <div className="flex items-center gap-3">
