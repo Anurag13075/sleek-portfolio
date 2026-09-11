@@ -11,12 +11,12 @@ import { Button } from '../ui/button';
 
 export default function Projects() {
   return (
-    <Container className="mt-20">
-      <SectionHeading subHeading="Featured" heading="Projects" />
+    <Container className="home-section">
+      <SectionHeading subHeading="Things I do" heading="Selected projects" />
 
-      <ProjectList className="mt-8" projects={projects.slice(0, 4)} />
-      <div className="mt-8 flex justify-center">
-        <Button variant="outline">
+      <ProjectList className="mt-6" projects={projects.slice(0, 4)} />
+      <div className="mt-5">
+        <Button className="px-0 text-sm" variant="ghost">
           <Link href="/projects">Show all projects</Link>
         </Button>
       </div>
