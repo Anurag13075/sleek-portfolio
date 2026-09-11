@@ -50,22 +50,19 @@ export const LinkPreview = ({
   }
 
   const [isOpen, setOpen] = React.useState(false);
-
   const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const springConfig = { stiffness: 100, damping: 15 };
   const x = useMotionValue(0);
-
-  const translateX = useSpring(x, springConfig);
+  const translateX = useSpring(x, { stiffness: 100, damping: 15 });
 
   const handleMouseMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
     const targetRect = event.currentTarget.getBoundingClientRect();
     const eventOffsetX = event.clientX - targetRect.left;
-    const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2; // Reduce the effect to make it subtle
+    const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2;
     x.set(offsetFromCenter);
   };
 
@@ -80,9 +77,7 @@ export const LinkPreview = ({
       <HoverCardPrimitive.Root
         openDelay={50}
         closeDelay={100}
-        onOpenChange={(open) => {
-          setOpen(open);
-        }}
+        onOpenChange={setOpen}
       >
         <HoverCardPrimitive.Trigger
           onMouseMove={handleMouseMove}
@@ -114,9 +109,7 @@ export const LinkPreview = ({
                 }}
                 exit={{ opacity: 0, y: 20, scale: 0.6 }}
                 className="rounded-xl shadow-xl"
-                style={{
-                  x: translateX,
-                }}
+                style={{ x: translateX }}
               >
                 <a
                   href={url}

@@ -10,8 +10,8 @@ import { Button } from '../ui/button';
 export default function Experience() {
   return (
     <Container className="home-section">
-      <SectionHeading subHeading="Where I&apos;ve worked" heading="Experience" />
-      <div className="mt-6 divide-y divide-border">
+      <SectionHeading subHeading="Where I've worked" heading="Experience" />
+      <div className="experience-list mt-6">
         {experiences.slice(0, 2).map((experience: Experience) => (
           <ExperienceCard key={experience.company} experience={experience} />
         ))}

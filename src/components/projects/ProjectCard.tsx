@@ -1,9 +1,11 @@
 'use client';
 
 import { type Project } from '@/types/project';
+import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+
+import { LinkPreview } from '../ui/link-preview';
 
 interface ProjectCardProps {
   project: Project;
@@ -25,30 +27,31 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <Link
             href={project.projectDetailsPageSlug}
-            className="text-base font-medium text-foreground transition-colors hover:text-primary"
+            className="text-foreground hover:text-primary text-base font-medium transition-colors"
           >
             {project.title}
           </Link>
-          <span className="text-xs text-muted-foreground">
+          <span className="text-muted-foreground text-xs">
             {project.technologies
               .slice(0, 3)
               .map((technology) => technology.name)
               .join(' · ')}
           </span>
         </div>
-        <p className="mt-1 line-clamp-2 text-sm leading-6 text-muted-foreground">
+        <p className="text-muted-foreground mt-1 line-clamp-2 text-sm leading-6">
           {project.description}
         </p>
       </div>
-      <Link
-        href={project.live ?? project.link}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={`Visit ${project.title}`}
+      <LinkPreview
+        url={project.live ?? project.link}
+        imageSrc={project.image}
+        isStatic
         className="row-arrow"
       >
-        <ArrowUpRight className="size-4" />
-      </Link>
+        <span aria-label={`Visit ${project.title}`}>
+          <ArrowUpRight className="size-4" />
+        </span>
+      </LinkPreview>
     </article>
   );
 }

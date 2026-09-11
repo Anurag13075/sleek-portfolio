@@ -27,25 +27,28 @@ export function BlogCard({ post }: BlogCardProps) {
   });
 
   return (
-    <Card className="group h-full w-full overflow-hidden border-gray-100 p-0 shadow-none transition-all dark:border-gray-800">
+    <Card className="group border-border h-full w-full overflow-hidden bg-transparent p-0 shadow-none">
       <CardHeader className="p-0">
-        <Link href={`/blog/${slug}`} className="block relative aspect-video overflow-hidden rounded-t-xl">
+        <Link
+          href={`/blog/${slug}`}
+          className="relative block aspect-[2.1/1] overflow-hidden rounded-md"
+        >
           <div className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-105">
             <Image src={image} alt={title} fill className="object-cover" />
           </div>
         </Link>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-4 py-4">
         <div className="space-y-3">
           <Link href={`/blog/${slug}`}>
-            <h3 className="group-hover:text-primary line-clamp-2 text-xl leading-tight font-semibold">
+            <h3 className="group-hover:text-primary line-clamp-2 text-lg leading-tight font-semibold">
               {title}
             </h3>
           </Link>
           <p className="text-secondary mt-4 line-clamp-3">{description}</p>
         </div>
       </CardContent>
-      <CardFooter className="p-6 pt-0">
+      <CardFooter className="px-4 pt-0 pb-4">
         <div className="flex w-full flex-col space-y-3">
           <div className="flex flex-wrap gap-2">
             {tags.slice(0, 3).map((tag) => (
