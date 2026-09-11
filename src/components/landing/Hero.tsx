@@ -1,7 +1,6 @@
 'use client';
 
-import { heroConfig, socialLinks } from '@/config/Hero';
-import Image from 'next/image';
+import { socialLinks } from '@/config/Hero';
 import Link from 'next/link';
 import Container from '../common/Container';
 
@@ -9,22 +8,7 @@ export default function Hero() {
   return (
     <Container className="hero-section">
       <div className="space-y-6">
-        <div className="flex items-center gap-3">
-            <Image
-              src={heroConfig.avatar}
-              alt={`${heroConfig.name} portrait`}
-              width={52}
-              height={52}
-              priority
-              className="size-12 rounded-full border border-border object-cover"
-            />
-          <div>
-            <p className="text-base font-medium text-foreground">
-              {heroConfig.name} Sharma <span className="text-muted-foreground">aka Anurag</span>
-            </p>
-            <p className="mt-1 text-sm text-muted-foreground">Design engineer &amp; full-stack developer</p>
-          </div>
-        </div>
+        <p className="eyebrow">Hello, I&apos;m Anurag</p>
         <p className="max-w-2xl text-base leading-8 text-muted-foreground">
           I build interactive web apps with a focus on clean UI, useful
           experiences, and a keen eye for detail. I&apos;m enthusiastic about

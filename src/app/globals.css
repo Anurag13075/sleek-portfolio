@@ -135,9 +135,26 @@
   }
 
   .home-section {
-    border-top: 1px solid var(--border);
+    border-top: 1px dotted var(--border);
     padding-top: 2.75rem;
     padding-bottom: 2.75rem;
+  }
+
+  .home-about {
+    display: grid;
+    gap: 1rem;
+    border-top: 1px dotted var(--border);
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .about-copy {
+    display: grid;
+    gap: 1.15rem;
+    max-width: 44rem;
+    color: var(--muted-foreground);
+    font-size: 1rem;
+    line-height: 1.9;
   }
 
   .eyebrow {
