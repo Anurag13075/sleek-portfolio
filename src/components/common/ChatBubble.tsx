@@ -150,7 +150,7 @@ const ChatBubble: React.FC = () => {
 
   const sendMessage = async (messageText: string, botMessageId: number) => {
     try {
-      // Prepare conversation history for Gemini API format
+      // Keep the history shape compatible with the chat API.
       const history = messages.slice(-10).map((msg) => ({
         role: msg.sender === 'user' ? ('user' as const) : ('model' as const),
         parts: [{ text: msg.text }],

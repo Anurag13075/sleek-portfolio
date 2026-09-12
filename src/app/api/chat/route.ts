@@ -128,9 +128,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.GROQ_API_KEY;
     if (!apiKey) {
-      console.error('GEMINI_API_KEY not configured');
+      console.error('GROQ_API_KEY not configured');
       return NextResponse.json(
         { error: 'AI service not configured' },
         { status: 500 },
@@ -140,53 +140,40 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = chatSchema.parse(body);
 
-    // Prepare the request body for Gemini REST API
-    const requestBody = {
-      contents: [
-        {
-          parts: [{ text: systemPrompt }],
-          role: 'user',
-        },
-        {
-          parts: [
-            { text: 'I understand. I will act as your portfolio assistant.' },
-          ],
-          role: 'model',
-        },
-        // Add conversation history
-        ...validatedData.history.map((msg) => ({
-          ...msg,
-          parts: msg.parts.map((part) => ({
-            ...part,
-            text: msg.role === 'user' ? sanitizeInput(part.text) : part.text,
-          })),
-        })),
-        // Add current message
-        {
-          parts: [{ text: sanitizeInput(validatedData.message) }],
-          role: 'user',
-        },
-      ],
-      generationConfig: {
-        maxOutputTokens: 512,
-        temperature: 0.7,
-        topP: 0.8,
-        topK: 40,
-      },
-    };
+    const messages = [
+      { role: 'system', content: systemPrompt },
+      ...validatedData.history.slice(-10).map((msg) => ({
+        role: msg.role === 'model' ? ('assistant' as const) : ('user' as const),
+        content: msg.parts.map((part) => part.text).join('\n'),
+      })),
+      { role: 'user' as const, content: sanitizeInput(validatedData.message) },
+    ];
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
-
-    const response = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      'https://api.groq.com/openai/v1/chat/completions',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages,
+          max_tokens: 512,
+          temperature: 0.7,
+          stream: true,
+        }),
       },
-      body: JSON.stringify(requestBody),
-    });
+    );
 
     if (!response.ok) {
-      throw new Error(`Gemini API error: ${response.status}`);
+      const details = await response.text();
+      console.error('Groq API error:', response.status, details);
+      return NextResponse.json(
+        { error: 'AI service request failed' },
+        { status: 502 },
+      );
     }
 
     const encoder = new TextEncoder();
@@ -198,7 +185,7 @@ export async function POST(request: NextRequest) {
             onEvent: (event) => {
               try {
                 const data = JSON.parse(event.data);
-                const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                const text = data?.choices?.[0]?.delta?.content;
                 if (text) {
                   // Send as Server-Sent Event format
                   const sseData = `data: ${JSON.stringify({ text })}\n\n`;
@@ -254,7 +241,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error: 'Invalid request data',
-          details: error.errors,
+          details: error.issues,
         },
         { status: 400 },
       );
