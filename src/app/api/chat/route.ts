@@ -181,8 +181,14 @@ export async function POST(request: NextRequest) {
     const stream = new ReadableStream({
       async start(controller) {
         try {
+          let streamFinished = false;
           const parser = createParser({
             onEvent: (event) => {
+              if (event.data === '[DONE]') {
+                streamFinished = true;
+                return;
+              }
+
               try {
                 const data = JSON.parse(event.data);
                 const text = data?.choices?.[0]?.delta?.content;
@@ -204,14 +210,13 @@ export async function POST(request: NextRequest) {
           const reader = response.body.getReader();
           const decoder = new TextDecoder();
 
-          while (true) {
+          while (!streamFinished) {
             const { done, value } = await reader.read();
             if (done) break;
 
-            parser.feed(decoder.decode(value));
+            parser.feed(decoder.decode(value, { stream: true }));
           }
 
-          // Send completion signal
           controller.enqueue(encoder.encode('data: {"done": true}\n\n'));
           controller.close();
         } catch (error) {

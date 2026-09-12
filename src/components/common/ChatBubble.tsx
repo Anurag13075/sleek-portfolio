@@ -179,50 +179,52 @@ const ChatBubble: React.FC = () => {
       }
 
       let accumulatedText = '';
+      let bufferedChunk = '';
 
       while (true) {
         const { done, value } = await reader.read();
 
         if (done) break;
 
-        const chunk = decoder.decode(value);
-        const lines = chunk.split('\n');
+        bufferedChunk += decoder.decode(value, { stream: true });
+        const lines = bufferedChunk.split('\n');
+        bufferedChunk = lines.pop() ?? '';
 
         for (const line of lines) {
           if (line.startsWith('data: ')) {
+            let data: { error?: string; text?: string; done?: boolean };
             try {
-              const data = JSON.parse(line.slice(6));
-
-              if (data.error) {
-                throw new Error(data.error);
-              }
-
-              if (data.text) {
-                accumulatedText += data.text;
-
-                // Update the streaming message in real-time
-                setMessages((prev) =>
-                  prev.map((msg) =>
-                    msg.id === botMessageId
-                      ? { ...msg, text: accumulatedText, isStreaming: true }
-                      : msg,
-                  ),
-                );
-              }
-
-              if (data.done) {
-                // Finalize the message
-                setMessages((prev) =>
-                  prev.map((msg) =>
-                    msg.id === botMessageId
-                      ? { ...msg, text: accumulatedText, isStreaming: false }
-                      : msg,
-                  ),
-                );
-                break;
-              }
-            } catch {
+              data = JSON.parse(line.slice(6)) as typeof data;
+            } catch (parseError) {
+              console.error('Failed to parse chat stream event:', parseError);
               continue;
+            }
+
+            if (data.error) {
+              throw new Error(data.error);
+            }
+
+            if (data.text) {
+              accumulatedText += data.text;
+
+              setMessages((prev) =>
+                prev.map((msg) =>
+                  msg.id === botMessageId
+                    ? { ...msg, text: accumulatedText, isStreaming: true }
+                    : msg,
+                ),
+              );
+            }
+
+            if (data.done) {
+              setMessages((prev) =>
+                prev.map((msg) =>
+                  msg.id === botMessageId
+                    ? { ...msg, text: accumulatedText, isStreaming: false }
+                    : msg,
+                ),
+              );
+              break;
             }
           }
         }
